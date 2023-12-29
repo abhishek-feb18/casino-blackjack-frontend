@@ -7,6 +7,7 @@
       "esnext"
     ],
     "allowJs": true,
+    "baseUrl": "./",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -15,12 +16,25 @@
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
     "moduleResolution": "node",
+    "paths": {
+      "@src/*":[
+        "./src/*"
+      ],
+      "@test/*":[
+        "./test/*"
+      ]
+    },
     "resolveJsonModule": true,
+    "rootDirs": [
+      "./src",
+      "./test"
+    ],
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src",
+    "test"
   ]
 }
