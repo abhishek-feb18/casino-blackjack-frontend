@@ -10,42 +10,7 @@ interface IHomepageProps {
 
 function Homepage({ isLogged, setIsLogged }: IHomepageProps) {
     return (
-        <Box sx={{ display: "flex" }}>
-            <AppBar
-                position="fixed"
-                sx={{
-                    zIndex: (theme) => theme.zIndex.drawer + 1,
-                    backgroundColor: "#154F07",
-                }}
-            >
-                <Toolbar sx={{ justifyContent: "center" }}>
-                    <Typography
-                        variant="h1"
-                        noWrap
-                        component="div"
-                        fontSize={48}
-                        paddingTop={"5px"}
-                        sx={{
-                            fontFamily: '"Carattere", cursive',
-                            fontWeight: "900",
-                            color: "antiquewhite",
-                        }}
-                    >
-                        <span style={{ fontSize: 32 }}>❤️ ♠️</span>
-                        <span
-                            style={{
-                                fontFamily: '"Carattere", cursive',
-                                fontWeight: "900",
-                                color: "antiquewhite",
-                                padding: "0px 30px",
-                            }}
-                        >
-                            Blackjack
-                        </span>
-                        <span style={{ fontSize: 32 }}>♣️ ♦️</span>
-                    </Typography>
-                </Toolbar>
-            </AppBar>
+        <>
             <LeftNavigationPanel
                 isLogged={isLogged}
                 setIsLogged={setIsLogged}
@@ -56,7 +21,7 @@ function Homepage({ isLogged, setIsLogged }: IHomepageProps) {
             >
                 <Toolbar sx={{ backgroundColor: "black" }} />
             </Box>
-        </Box>
+        </>
     );
 }
 

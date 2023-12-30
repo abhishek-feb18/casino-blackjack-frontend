@@ -12,6 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { APP_NAME, ROUTES } from "src/utils/constants";
 import { useNavigate } from "react-router-dom";
+import LeftNavigationPanel from "src/components/LeftNavigationPanel";
 
 function Copyright(props: any) {
     return (
@@ -22,7 +23,7 @@ function Copyright(props: any) {
             {...props}
         >
             {"Copyright © "}
-            <Link color="inherit" href="https://mui.com/">
+            <Link color="inherit" href={ROUTES.HOMEPAGE}>
                 {APP_NAME}
             </Link>{" "}
             {new Date().getFullYear()}
@@ -31,7 +32,12 @@ function Copyright(props: any) {
     );
 }
 
-export default function Login() {
+interface ILoginProps {
+    isLogged: Boolean;
+    setIsLogged: Function;
+}
+
+export default function Login({ isLogged, setIsLogged }: ILoginProps) {
     const navigate = useNavigate();
     const onSignupRedirectClick = () => {
         navigate(ROUTES.SIGNUP);
@@ -43,105 +49,110 @@ export default function Login() {
             email: data.get("email"),
             password: data.get("password"),
         });
+        setIsLogged(true);
+        navigate(ROUTES.HOMEPAGE);
     };
 
     return (
-        <Grid container component="main" sx={{ height: "100vh" }}>
-            <Grid
-                item
-                xs={false}
-                sm={4}
-                md={7}
-                sx={{
-                    backgroundColor: (t) =>
-                        t.palette.mode === "light"
-                            ? t.palette.grey[50]
-                            : t.palette.grey[900],
-                }}
+        <>
+            <LeftNavigationPanel
+                isLogged={isLogged}
+                setIsLogged={setIsLogged}
             />
             <Grid
-                item
-                xs={12}
-                sm={8}
-                md={5}
-                component={Paper}
-                elevation={6}
-                square
+                container
+                component="main"
+                sx={{ height: "70vh", marginTop: "120px" }}
             >
-                <Box
-                    sx={{
-                        my: 8,
-                        mx: 4,
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                    }}
+                <Grid item xs={false} sm={2} md={4} />
+                <Grid
+                    item
+                    xs={12}
+                    sm={8}
+                    md={4}
+                    component={Paper}
+                    elevation={6}
+                    sx={{ borderRadius: "6px" }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign in
-                    </Typography>
                     <Box
-                        component="form"
-                        noValidate
-                        onSubmit={handleSubmit}
-                        sx={{ mt: 1 }}
+                        sx={{
+                            my: 4,
+                            mx: 4,
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                        }}
                     >
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
-                            autoFocus
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                        />
-                        <FormControlLabel
-                            control={
-                                <Checkbox value="remember" color="primary" />
-                            }
-                            label="Remember me"
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                            <LockOutlinedIcon />
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
+                            Sign in
+                        </Typography>
+                        <Box
+                            component="form"
+                            noValidate
+                            onSubmit={handleSubmit}
+                            sx={{ mt: 1 }}
                         >
-                            Sign In
-                        </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
+                            />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        value="remember"
+                                        color="primary"
+                                    />
+                                }
+                                label="Remember me"
+                            />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                Sign In
+                            </Button>
+                            <Grid container>
+                                <Grid item xs>
+                                    <Link href="#" variant="body2">
+                                        Forgot password?
+                                    </Link>
+                                </Grid>
+                                <Grid item>
+                                    <Link
+                                        onClick={onSignupRedirectClick}
+                                        variant="body2"
+                                    >
+                                        {"Don't have an account? Sign Up"}
+                                    </Link>
+                                </Grid>
                             </Grid>
-                            <Grid item>
-                                <Link
-                                    onClick={onSignupRedirectClick}
-                                    variant="body2"
-                                >
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
-                            </Grid>
-                        </Grid>
-                        <Copyright sx={{ mt: 5 }} />
+                            <Copyright sx={{ mt: 5 }} />
+                        </Box>
                     </Box>
-                </Box>
+                </Grid>
+                <Grid item xs={false} sm={2} md={4} />
             </Grid>
-        </Grid>
+        </>
     );
 }

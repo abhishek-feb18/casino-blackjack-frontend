@@ -13,6 +13,8 @@ import PaidIcon from "@mui/icons-material/Paid";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import LoginIcon from "@mui/icons-material/Login";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "src/utils/constants";
 
 const drawerWidth = 240;
 const iconMap: {
@@ -36,6 +38,7 @@ export default function LeftNavigationPanel({
     isLogged,
     setIsLogged,
 }: INavigationPanelProps) {
+    const navigate = useNavigate();
     const primaryNavigationList = isLogged
         ? ["Play Now!", "Buy Chips"]
         : ["Sign Up", "Sign In"];
@@ -45,8 +48,11 @@ export default function LeftNavigationPanel({
     function handleNavigationButtonsClick(target: any) {
         if (target.textContent === "Logout") {
             setIsLogged(false);
+            navigate(ROUTES.HOMEPAGE);
         } else if (target.textContent === "Sign In") {
-            setIsLogged(true);
+            navigate(ROUTES.LOGIN);
+        } else if (target.textContent === "Sign Up") {
+            navigate(ROUTES.SIGNUP);
         }
     }
 
