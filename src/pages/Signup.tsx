@@ -20,7 +20,7 @@ function Copyright(props: any) {
             {...props}
         >
             {"Copyright © "}
-            <Link color="inherit" href="https://mui.com/">
+            <Link color="inherit" href={ROUTES.HOMEPAGE}>
                 {APP_NAME}
             </Link>{" "}
             {new Date().getFullYear()}
@@ -51,14 +51,10 @@ export default function Signup() {
                 sm={4}
                 md={7}
                 sx={{
-                    backgroundImage: "url(./images/casino-background.jpg)",
-                    backgroundRepeat: "no-repeat",
                     backgroundColor: (t) =>
                         t.palette.mode === "light"
                             ? t.palette.grey[50]
                             : t.palette.grey[900],
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
                 }}
             />
             <Grid
@@ -83,7 +79,7 @@ export default function Signup() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign up
+                        {`Create a ${APP_NAME} account`}
                     </Typography>
                     <Box
                         component="form"
