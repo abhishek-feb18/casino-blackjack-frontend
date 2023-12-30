@@ -6,28 +6,50 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
+import PaidIcon from "@mui/icons-material/Paid";
+import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
+import LoginIcon from "@mui/icons-material/Login";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 
 const drawerWidth = 240;
-const primaryNavigationList = ["Sign Up", "Sign In", "Play Now!", "Buy Chips"];
-const secondaryNavigationList = ["How to play", "Stats", "Logout"];
 const iconMap: {
     [key: string]: JSX.Element;
 } = {
-    "Sign Up": <AssignmentIcon sx={{ color: "antiquewhite" }} />,
-    "Sign In": <AssignmentIcon sx={{ color: "antiquewhite" }} />,
-    "Play Now!": <AssignmentIcon sx={{ color: "antiquewhite" }} />,
-    "Buy Chips": <AssignmentIcon sx={{ color: "antiquewhite" }} />,
+    "Sign Up": <AppRegistrationIcon sx={{ color: "antiquewhite" }} />,
+    "Sign In": <LoginIcon sx={{ color: "antiquewhite" }} />,
+    "Play Now!": <FlightTakeoffIcon sx={{ color: "antiquewhite" }} />,
+    "Buy Chips": <PaidIcon sx={{ color: "antiquewhite" }} />,
     "How to play": <AssignmentIcon sx={{ color: "antiquewhite" }} />,
     Stats: <QueryStatsIcon sx={{ color: "antiquewhite" }} />,
     Logout: <LogoutIcon sx={{ color: "antiquewhite" }} />,
 };
 
-export default function LeftNavigationPanel() {
+interface INavigationPanelProps {
+    isLogged: Boolean;
+    setIsLogged: Function;
+}
+
+export default function LeftNavigationPanel({
+    isLogged,
+    setIsLogged,
+}: INavigationPanelProps) {
+    const primaryNavigationList = isLogged
+        ? ["Play Now!", "Buy Chips"]
+        : ["Sign Up", "Sign In"];
+    const secondaryNavigationList = isLogged
+        ? ["How to play", "Stats", "Logout"]
+        : ["How to play", "Stats"];
+    function handleNavigationButtonsClick(target: any) {
+        if (target.textContent === "Logout") {
+            setIsLogged(false);
+        } else if (target.textContent === "Sign In") {
+            setIsLogged(true);
+        }
+    }
+
     return (
         <Drawer
             PaperProps={{
@@ -51,7 +73,11 @@ export default function LeftNavigationPanel() {
             <List>
                 {primaryNavigationList.map((text, index) => (
                     <ListItem key={text} disablePadding>
-                        <ListItemButton>
+                        <ListItemButton
+                            onClick={(event) =>
+                                handleNavigationButtonsClick(event.target)
+                            }
+                        >
                             <ListItemIcon>{iconMap[text]}</ListItemIcon>
                             <ListItemText
                                 primary={text}
@@ -65,7 +91,11 @@ export default function LeftNavigationPanel() {
             <List>
                 {secondaryNavigationList.map((text, index) => (
                     <ListItem key={text} disablePadding>
-                        <ListItemButton>
+                        <ListItemButton
+                            onClick={(event) =>
+                                handleNavigationButtonsClick(event.target)
+                            }
+                        >
                             <ListItemIcon>{iconMap[text]}</ListItemIcon>
                             <ListItemText
                                 primary={text}

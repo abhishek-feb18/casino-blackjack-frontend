@@ -3,7 +3,12 @@ import LeftNavigationPanel from "src/components/LeftNavigationPanel";
 import Box from "@mui/material/Box";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 
-function Homepage() {
+interface IHomepageProps {
+    isLogged: Boolean;
+    setIsLogged: Function;
+}
+
+function Homepage({ isLogged, setIsLogged }: IHomepageProps) {
     return (
         <Box sx={{ display: "flex" }}>
             <AppBar
@@ -26,7 +31,7 @@ function Homepage() {
                             color: "antiquewhite",
                         }}
                     >
-                        <span style={{ fontSize: 36 }}>❤️ ♠️</span>
+                        <span style={{ fontSize: 32 }}>❤️ ♠️</span>
                         <span
                             style={{
                                 fontFamily: '"Carattere", cursive',
@@ -37,11 +42,14 @@ function Homepage() {
                         >
                             Blackjack
                         </span>
-                        <span style={{ fontSize: 36 }}>♣️ ♦️</span>
+                        <span style={{ fontSize: 32 }}>♣️ ♦️</span>
                     </Typography>
                 </Toolbar>
             </AppBar>
-            <LeftNavigationPanel />
+            <LeftNavigationPanel
+                isLogged={isLogged}
+                setIsLogged={setIsLogged}
+            />
             <Box
                 component="main"
                 sx={{ flexGrow: 1, bgcolor: "background.default", p: 0 }}
