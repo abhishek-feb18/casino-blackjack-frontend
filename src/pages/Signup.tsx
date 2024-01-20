@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -37,10 +37,16 @@ interface ISignupProps {
 
 export default function Signup({ isLogged, setIsLogged }: ISignupProps) {
     const navigate = useNavigate();
+    const [signupFormValues, setSignupFormValues] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+    });
     const onSignInRedirectClick = () => {
         navigate(ROUTES.LOGIN);
     };
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         console.log({
@@ -49,6 +55,17 @@ export default function Signup({ isLogged, setIsLogged }: ISignupProps) {
         });
         setIsLogged(true);
         navigate(ROUTES.HOMEPAGE);
+    };
+
+    const onSignupFormValueChange = (event: any) => {
+        console.log(event.target.id);
+        console.log(event.target.value);
+        setSignupFormValues((previousValues) => {
+            return {
+                ...previousValues,
+                [event.target.id]: event.target.value,
+            };
+        });
     };
 
     return (
@@ -103,6 +120,8 @@ export default function Signup({ isLogged, setIsLogged }: ISignupProps) {
                                         id="firstName"
                                         label="First Name"
                                         autoFocus
+                                        onChange={onSignupFormValueChange}
+                                        value={signupFormValues.firstName}
                                     />
                                 </Grid>
                                 <Grid item xs={12} sm={6}>
@@ -113,6 +132,8 @@ export default function Signup({ isLogged, setIsLogged }: ISignupProps) {
                                         label="Last Name"
                                         name="lastName"
                                         autoComplete="family-name"
+                                        onChange={onSignupFormValueChange}
+                                        value={signupFormValues.lastName}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -123,6 +144,8 @@ export default function Signup({ isLogged, setIsLogged }: ISignupProps) {
                                         label="Email Address"
                                         name="email"
                                         autoComplete="email"
+                                        onChange={onSignupFormValueChange}
+                                        value={signupFormValues.email}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -134,6 +157,8 @@ export default function Signup({ isLogged, setIsLogged }: ISignupProps) {
                                         type="password"
                                         id="password"
                                         autoComplete="new-password"
+                                        onChange={onSignupFormValueChange}
+                                        value={signupFormValues.password}
                                     />
                                 </Grid>
                             </Grid>
