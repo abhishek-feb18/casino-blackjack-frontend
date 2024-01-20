@@ -16,101 +16,95 @@ import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "src/utils/constants";
 
-const drawerWidth = 240;
+export const drawerWidth = 240;
 const iconMap: {
-    [key: string]: JSX.Element;
+  [key: string]: JSX.Element;
 } = {
-    "Sign Up": <AppRegistrationIcon sx={{ color: "antiquewhite" }} />,
-    "Sign In": <LoginIcon sx={{ color: "antiquewhite" }} />,
-    "Play Now!": <FlightTakeoffIcon sx={{ color: "antiquewhite" }} />,
-    "Buy Chips": <PaidIcon sx={{ color: "antiquewhite" }} />,
-    "How to play": <AssignmentIcon sx={{ color: "antiquewhite" }} />,
-    Stats: <QueryStatsIcon sx={{ color: "antiquewhite" }} />,
-    Logout: <LogoutIcon sx={{ color: "antiquewhite" }} />,
+  "Sign Up": <AppRegistrationIcon sx={{ color: "antiquewhite" }} />,
+  "Sign In": <LoginIcon sx={{ color: "antiquewhite" }} />,
+  "Play Now!": <FlightTakeoffIcon sx={{ color: "antiquewhite" }} />,
+  "Buy Chips": <PaidIcon sx={{ color: "antiquewhite" }} />,
+  "How to play": <AssignmentIcon sx={{ color: "antiquewhite" }} />,
+  Stats: <QueryStatsIcon sx={{ color: "antiquewhite" }} />,
+  Logout: <LogoutIcon sx={{ color: "antiquewhite" }} />,
 };
 
 interface INavigationPanelProps {
-    isLogged: Boolean;
-    setIsLogged: Function;
+  isLogged: Boolean;
+  setIsLogged: Function;
 }
 
 export default function LeftNavigationPanel({
-    isLogged,
-    setIsLogged,
+  isLogged,
+  setIsLogged,
 }: INavigationPanelProps) {
-    const navigate = useNavigate();
-    const primaryNavigationList = isLogged
-        ? ["Play Now!", "Buy Chips"]
-        : ["Sign Up", "Sign In"];
-    const secondaryNavigationList = isLogged
-        ? ["How to play", "Stats", "Logout"]
-        : ["How to play", "Stats"];
-    function handleNavigationButtonsClick(target: any) {
-        if (target.textContent === "Logout") {
-            setIsLogged(false);
-            navigate(ROUTES.HOMEPAGE);
-        } else if (target.textContent === "Sign In") {
-            navigate(ROUTES.LOGIN);
-        } else if (target.textContent === "Sign Up") {
-            navigate(ROUTES.SIGNUP);
-        }
+  const navigate = useNavigate();
+  const primaryNavigationList = isLogged
+    ? ["Play Now!", "Buy Chips"]
+    : ["Sign Up", "Sign In"];
+  const secondaryNavigationList = isLogged
+    ? ["How to play", "Stats", "Logout"]
+    : ["How to play", "Stats"];
+  function handleNavigationButtonsClick(target: any) {
+    if (target.textContent === "Logout") {
+      setIsLogged(false);
+      navigate(ROUTES.HOMEPAGE);
+    } else if (target.textContent === "Sign In") {
+      navigate(ROUTES.LOGIN);
+    } else if (target.textContent === "Sign Up") {
+      navigate(ROUTES.SIGNUP);
     }
+  }
 
-    return (
-        <Drawer
-            PaperProps={{
-                sx: {
-                    backgroundColor: "#088038",
-                },
-            }}
-            sx={{
-                width: drawerWidth,
-                flexShrink: 0,
-                "& .MuiDrawer-paper": {
-                    width: drawerWidth,
-                    boxSizing: "border-box",
-                },
-            }}
-            variant="permanent"
-            anchor="left"
-        >
-            <Toolbar sx={{ backgroundColor: "black" }} />
-            <Divider />
-            <List>
-                {primaryNavigationList.map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton
-                            onClick={(event) =>
-                                handleNavigationButtonsClick(event.target)
-                            }
-                        >
-                            <ListItemIcon>{iconMap[text]}</ListItemIcon>
-                            <ListItemText
-                                primary={text}
-                                sx={{ color: "antiquewhite" }}
-                            />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-            <Divider sx={{ borderColor: "antiquewhite" }} />
-            <List>
-                {secondaryNavigationList.map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton
-                            onClick={(event) =>
-                                handleNavigationButtonsClick(event.target)
-                            }
-                        >
-                            <ListItemIcon>{iconMap[text]}</ListItemIcon>
-                            <ListItemText
-                                primary={text}
-                                sx={{ color: "antiquewhite" }}
-                            />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-        </Drawer>
-    );
+  return (
+    <Drawer
+      PaperProps={{
+        sx: {
+          backgroundColor: "#088038",
+        },
+      }}
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        gridRow: "1 / -1",
+        gridColumn: "1",
+        display: "flex",
+        flexDirection: "column",
+        "& .MuiDrawer-paper": {
+          width: drawerWidth,
+          boxSizing: "border-box",
+        },
+      }}
+      variant="permanent"
+      anchor="left"
+    >
+      <Toolbar sx={{ height: "5rem" }} />
+      <Divider />
+      <List>
+        {primaryNavigationList.map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton
+              onClick={(event) => handleNavigationButtonsClick(event.target)}
+            >
+              <ListItemIcon>{iconMap[text]}</ListItemIcon>
+              <ListItemText primary={text} sx={{ color: "antiquewhite" }} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider sx={{ borderColor: "antiquewhite" }} />
+      <List>
+        {secondaryNavigationList.map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton
+              onClick={(event) => handleNavigationButtonsClick(event.target)}
+            >
+              <ListItemIcon>{iconMap[text]}</ListItemIcon>
+              <ListItemText primary={text} sx={{ color: "antiquewhite" }} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Drawer>
+  );
 }
